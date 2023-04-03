@@ -17,9 +17,9 @@ namespace CQRS_Example
             builder.Services.AddSwaggerGen();
             builder.Services.AddTransient<Context>();
             builder.Services.AddTransient<Repository>();
+            builder.Services.AddHttpClient();
             builder.Services.AddApplication();
             
-
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
