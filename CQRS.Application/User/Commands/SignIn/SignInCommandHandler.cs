@@ -29,10 +29,10 @@ namespace CQRS.Application.User.Commands.SignIn
 
             var response = await httpClient.PostAsync("http://localhost:8080/realms/Test/protocol/openid-connect/token", content);
          
-            if (response.StatusCode == HttpStatusCode.Unauthorized)
-            {
-                throw new HttpRequestException(null, null, HttpStatusCode.Unauthorized);
-            }
+            //if (response.StatusCode == HttpStatusCode.Unauthorized)
+            //{
+            //    throw new HttpRequestException(null, null, HttpStatusCode.Unauthorized);
+            //}
 
             string responseContent = await response.Content.ReadAsStringAsync();
             Token token = JsonConvert.DeserializeObject<Token>(responseContent);

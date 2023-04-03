@@ -23,6 +23,12 @@ namespace CQRS_Example.Controllers
         public async Task<IActionResult> SignInUserAsync([FromBody] SignInCommand command)
         {
             var response = await _mediator.Send(command);
+
+            if (response.AccessToken == null)
+            {
+                return Unauthorized();
+            }
+
             return Ok(response);
         }
     }
