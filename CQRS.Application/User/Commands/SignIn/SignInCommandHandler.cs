@@ -1,22 +1,29 @@
 ﻿using MediatR;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using System.Net;
-using System.Net.Http;
 
 namespace CQRS.Application.User.Commands.SignIn
 {
     public class SignInCommandHandler : IRequestHandler<SignInCommand, Token>
     {
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IConfiguration _configuration;
 
-        public SignInCommandHandler(IHttpClientFactory httpClientFactory)
+        public SignInCommandHandler(IHttpClientFactory httpClientFactory, IConfiguration configuration)
         {
             _httpClientFactory = httpClientFactory;
+            _configuration = configuration; 
+        }
+
+        public IConfiguration Get_configuration()
+        {
+            return _configuration;
         }
 
         public async Task<Token> Handle(SignInCommand request, CancellationToken cancellationToken)
         {
             var httpClient = _httpClientFactory.CreateClient();
+            ApiKeycloakSettings apiKeycloakSettings = _configuration.GetSection("Keycloak");
 
             var content = new FormUrlEncodedContent(new[]
             {

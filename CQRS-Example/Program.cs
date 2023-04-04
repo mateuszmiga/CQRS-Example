@@ -1,5 +1,6 @@
 using CQRS.Application.Extensions;
 using CQRS.Infrastructure;
+using Microsoft.Extensions.Configuration;
 
 namespace CQRS_Example
 {
@@ -19,7 +20,7 @@ namespace CQRS_Example
             builder.Services.AddTransient<Repository>();
             builder.Services.AddHttpClient();
             builder.Services.AddApplication();
-            
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
