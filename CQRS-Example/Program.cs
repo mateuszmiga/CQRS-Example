@@ -1,6 +1,9 @@
 using CQRS.Application.Extensions;
+using CQRS.Application.User;
+using CQRS.Application.User.Commands.SignIn;
 using CQRS.Infrastructure;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CQRS_Example
 {
@@ -18,8 +21,10 @@ namespace CQRS_Example
             builder.Services.AddSwaggerGen();
             builder.Services.AddTransient<Context>();
             builder.Services.AddTransient<Repository>();
+         
             builder.Services.AddHttpClient();
             builder.Services.AddApplication();
+            builder.Services.Configure<ApiKeycloakSettings>(builder.Configuration.GetSection("ApiKeycloakSettings"));
 
             var app = builder.Build();
 
